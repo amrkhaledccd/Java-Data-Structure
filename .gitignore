@@ -1,0 +1,6 @@
+.idea
+target
+*.iml
+status
+native/
+.DS_Store
