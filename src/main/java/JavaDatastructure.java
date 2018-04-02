@@ -14,6 +14,7 @@ public class JavaDatastructure {
 
         // get element at index
         System.out.println(linkedList.get(1).orElse(-1));
+        System.out.println(linkedList.getRecursive(2).orElse(-1));
 
         // reverse linkedList
         LinkedList<Integer> reversedList = linkedList.reverse();

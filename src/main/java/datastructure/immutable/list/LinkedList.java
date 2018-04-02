@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -26,7 +27,7 @@ class Nil extends LinkedList{
  */
 @Data
 @AllArgsConstructor
-class Item<A> extends LinkedList<A>{
+class Item<A> extends LinkedList<A> {
     A hd;
     LinkedList<A> tl;
 
@@ -45,6 +46,7 @@ interface ILinkedList<A> {
     LinkedList<A> tail();
     void traverse(Consumer<A> consumer);
     Optional<A> get(int index);
+    Optional<A> getRecursive(int index);
     LinkedList<A> reverse();
     LinkedList<A> drop(int count);
     LinkedList<A> dropWhile(Predicate<A> predicate);
@@ -147,6 +149,23 @@ public class LinkedList<A> implements ILinkedList<A> {
         if(cursor.isNil()) throw new IndexOutOfBoundsException();
 
         return Optional.ofNullable(cursor.head());
+    }
+
+    /*
+        An example of recursive implementation
+    */
+    BiFunction<LinkedList<A>, Integer, Optional<A>> getRecursive;
+
+    @Override
+    public Optional<A> getRecursive(int index) {
+
+        getRecursive = (current, idx) -> {
+                if(idx < 0 || current.isNil()) throw new IndexOutOfBoundsException();
+                if(idx == 0) return Optional.ofNullable(current.head());
+                return getRecursive.apply(current.tail(), idx - 1);
+            };
+
+        return getRecursive.apply(this, index);
     }
 
     /*
