@@ -1,7 +1,6 @@
 import datastructure.immutable.list.LinkedList;
 import datastructure.mutable.tree.BinaryTree;
 
-
 public class JavaDatastructure {
 
     public static void main(String[] args){
@@ -66,5 +65,12 @@ public class JavaDatastructure {
         bTree4.flip();
 
         System.out.println(bTree3.flipEqual(bTree4));
+
+        datastructure.immutable.tree.BinaryTree imTree = datastructure.immutable.tree.BinaryTree.of(1, 2 , 3);
+        System.out.println(imTree);
+
+        datastructure.immutable.tree.BinaryTree flipedImTree = imTree.flip();
+        System.out.println(flipedImTree);
+
     }
 }
