@@ -1,4 +1,5 @@
 import datastructure.immutable.list.LinkedList;
+import datastructure.mutable.tree.BinaryTree;
 
 
 public class JavaDatastructure {
@@ -47,5 +48,23 @@ public class JavaDatastructure {
         prependedList.delete(2).traverse(x -> System.out.print(x + " "));
         System.out.println();
 
+        BinaryTree bTree = BinaryTree.of(1, 2, 4, 5, 6, 7);
+        System.out.println(bTree.depth());
+
+        BinaryTree bTree2 = BinaryTree.of(1, 2, 4, 5, 6, 7);
+
+        System.out.println(bTree.compare(bTree2));
+
+        BinaryTree fliped = BinaryTree.of(4, 12, 15);
+
+        System.out.println(fliped);
+        fliped.flip();
+        System.out.println(fliped);
+
+        BinaryTree bTree3 = BinaryTree.of(4, 12, 15, 1, 6, 13);
+        BinaryTree bTree4 = BinaryTree.of(4, 12, 15, 1, 6, 13);
+        bTree4.flip();
+
+        System.out.println(bTree3.flipEqual(bTree4));
     }
 }
