@@ -1,4 +1,5 @@
 import datastructure.immutable.list.LinkedList;
+import datastructure.immutable.tree.BinarySearchTree;
 import datastructure.mutable.tree.BinaryTree;
 
 public class JavaDatastructure {
@@ -73,5 +74,11 @@ public class JavaDatastructure {
         datastructure.immutable.tree.BinaryTree flipedImTree = imTree.flip();
         System.out.println(flipedImTree);
 
+
+        BinarySearchTree<Integer> bst = BinarySearchTree.of(3, 1, 2, 6, 4, 8);
+        System.out.println(bst);
+
+        BinarySearchTree mappedTree = bst.map(elem -> elem * 2);
+        System.out.println(mappedTree);
     }
 }
