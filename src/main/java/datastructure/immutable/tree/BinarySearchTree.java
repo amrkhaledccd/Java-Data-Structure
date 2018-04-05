@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /*
@@ -42,6 +44,11 @@ interface IBinarySearchTree<A extends Comparable<A>> {
     Integer depth();
     Boolean compare(BinarySearchTree<A> that);
     <B extends Comparable<B>> BinarySearchTree<B> map(Function<A, B> f);
+    BinarySearchTree<A> insert(A data);
+    Optional<A> find(A key);
+    void preOrderTraversal(Consumer<A> consumer);
+    void inOrderTraversal(Consumer<A> consumer);
+    void postOrderTraversal(Consumer<A> consumer);
 }
 
 /*
@@ -131,12 +138,100 @@ public class BinarySearchTree<A extends Comparable<A>> implements IBinarySearchT
         }
     }
 
+    /*
+        Apply function f to each node
+    */
     @Override
     public <B extends Comparable<B>> BinarySearchTree<B> map(Function<A, B> f) {
         if(this.isLeaf()) return leafNode;
-        BranchNode<A> cursor = (BranchNode) this;
+        BranchNode<A> current = (BranchNode) this;
 
-        return new BranchNode<>(f.apply(cursor.data), cursor.left.map(f), cursor.right.map(f));
+        return new BranchNode<>(f.apply(current.data), current.left.map(f), current.right.map(f));
+    }
+
+    /*
+        Adds new node
+    */
+    @Override
+    public BinarySearchTree<A> insert(A data) {
+        if(this.isLeaf()) return new BranchNode<>(data, leafNode, leafNode);
+
+        BranchNode<A> current = (BranchNode) this;
+
+        if(data.compareTo(current.data) < 0) {
+            return new BranchNode<>(current.data, current.left.insert(data), current.right);
+        }else{
+            return new BranchNode<>(current.data, current.left, current.right.insert(data));
+        }
+    }
+
+    /*
+        For simplicity the key is the same as the value
+        If key found return optional[key] otherwise return Nones
+    */
+    @Override
+    public Optional<A> find(A key) {
+        if(this.isLeaf()) return Optional.empty();
+
+        BranchNode<A> current = (BranchNode) this;
+
+        Optional<A> optional = Optional.empty();
+
+        switch (key.compareTo(current.data)){
+            case 0:
+                optional = Optional.ofNullable(current.data);
+                break;
+            case -1:
+                optional = current.left.find(key);
+                break;
+            case 1:
+                optional = current.right.find(key);
+                break;
+        }
+
+        return optional;
+    }
+
+    /*
+        Visits node -> left -> right
+    */
+    @Override
+    public void preOrderTraversal(Consumer<A> consumer) {
+        if(this.isLeaf()) return;
+
+        BranchNode<A> current = (BranchNode<A>) this;
+
+        consumer.accept(current.data);
+        current.left.preOrderTraversal(consumer);
+        current.right.preOrderTraversal(consumer);
+    }
+
+    /*
+        Visits left -> node -> right
+    */
+    @Override
+    public void inOrderTraversal(Consumer<A> consumer) {
+        if(this.isLeaf()) return;
+
+        BranchNode<A> current = (BranchNode<A>) this;
+
+        current.left.inOrderTraversal(consumer);
+        consumer.accept(current.data);
+        current.right.inOrderTraversal(consumer);
+    }
+
+    /*
+        Visits left -> right -> node
+    */
+    @Override
+    public void postOrderTraversal(Consumer<A> consumer) {
+        if(this.isLeaf()) return;
+
+        BranchNode<A> current = (BranchNode<A>) this;
+
+        current.left.postOrderTraversal(consumer);
+        current.right.postOrderTraversal(consumer);
+        consumer.accept(current.data);
     }
 
     private Boolean isLeaf() {

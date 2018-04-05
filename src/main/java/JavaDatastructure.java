@@ -80,5 +80,12 @@ public class JavaDatastructure {
 
         BinarySearchTree mappedTree = bst.map(elem -> elem * 2);
         System.out.println(mappedTree);
+
+        BinarySearchTree bst1 = BinarySearchTree.of();
+        BinarySearchTree bst2 = bst1.insert(10).insert(5).insert(15).insert(7).insert(12);
+
+        System.out.println(bst2.find(20).orElse("Not found"));
+        bst2.postOrderTraversal(x -> System.out.print(x +" "));
+        System.out.println();
     }
 }
