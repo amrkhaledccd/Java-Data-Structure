@@ -175,21 +175,9 @@ public class BinarySearchTree<A extends Comparable<A>> implements IBinarySearchT
 
         BranchNode<A> current = (BranchNode) this;
 
-        Optional<A> optional = Optional.empty();
-
-        switch (key.compareTo(current.data)){
-            case 0:
-                optional = Optional.ofNullable(current.data);
-                break;
-            case -1:
-                optional = current.left.find(key);
-                break;
-            case 1:
-                optional = current.right.find(key);
-                break;
-        }
-
-        return optional;
+        if(current.data.compareTo(key) == 0) return Optional.ofNullable(current.data);
+        else if (current.data.compareTo(key) == 1) return current.left.find(key);
+        else return current.right.find(key);
     }
 
     /*
