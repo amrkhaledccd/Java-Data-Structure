@@ -151,6 +151,7 @@ public class LinkedList<A> implements ILinkedList<A> {
         return Optional.ofNullable(cursor.head());
     }
 
+
     /*
         An example of recursive implementation
     */
