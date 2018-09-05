@@ -21,7 +21,8 @@ class Leaf extends BinaryTree{
  */
 @Data
 @AllArgsConstructor
-class Branch<A> extends BinaryTree<A> {
+class
+Branch<A> extends BinaryTree<A> {
     A data;
     BinaryTree<A> left;
     BinaryTree<A> right;
