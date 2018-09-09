@@ -1,6 +1,10 @@
 import datastructure.immutable.list.LinkedList;
 import datastructure.immutable.tree.BinarySearchTree;
 import datastructure.mutable.tree.BinaryTree;
+import datastructure.mutable.tree.balanced.AVLTree;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class JavaDatastructure {
 
@@ -87,5 +91,16 @@ public class JavaDatastructure {
         System.out.println(bst2.find(20).orElse("Not found"));
         bst2.postOrderTraversal(x -> System.out.print(x +" "));
         System.out.println();
+
+        List<Integer> orderedList = Arrays.asList(2, 3, 4, 5);
+        AVLTree avlTree = new AVLTree();
+
+        orderedList.forEach(key -> avlTree.insert(key));
+
+        System.out.println(avlTree.root());
+
+        avlTree.delete(2);
+
+        System.out.println(avlTree.root());
     }
 }
