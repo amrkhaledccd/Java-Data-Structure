@@ -1,5 +1,6 @@
 import datastructure.immutable.list.LinkedList;
 import datastructure.immutable.tree.BinarySearchTree;
+import datastructure.mutable.graph.UndirectedGraph;
 import datastructure.mutable.tree.BinaryTree;
 import datastructure.mutable.tree.balanced.AVLTree;
 
@@ -102,5 +103,21 @@ public class JavaDatastructure {
         avlTree.delete(2);
 
         System.out.println(avlTree.root());
+
+
+        UndirectedGraph graph = new UndirectedGraph(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 4);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 4);
+        graph.print();
+
+        int[] testA = new int []{1, 2, 3, 4, 5};
+        testA = Arrays.copyOf(testA, 3);
+
+        Arrays.stream(testA).forEach(System.out::println);
     }
 }
